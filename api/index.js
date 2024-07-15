@@ -27,6 +27,7 @@ app.use(cors({
 
 
 app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use(express.static(path.join(__dirname,'dist')));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -201,3 +202,6 @@ wss.on('connection', (connection, req) => {
   // notify everyone about online people (when someone connects)
   notifyAboutOnlinePeople();
 });
+app.use('*',(req,res)=>{
+  res.sendFile(path.join(__dirname,'dist','index.html'))
+})
